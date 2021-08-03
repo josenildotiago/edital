@@ -165,24 +165,45 @@
         <h1 class="text-center pt-4">
             REQUERIMENTO DE RECURSO DE AUTUAÇÃO OU PENALIDADE / RESTITUIÇÃO DE VALORES
         </h1>
-        <form action="" enctype="multipart/form-data">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        <form action="{{ route('getForm') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('POST')
             <fieldset>
                 <legend for="">Tipos de formulário <span class="required">*</span></legend>
 
                 <div class="text-center">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                            value="option1">
+                        @error('radio')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        <input class="form-check-input @error('radio') is-invalid @enderror" type="radio" name="radio"
+                            id="inlineRadio1" value="defesaprevia">
                         <label class="form-check-label" for="inlineRadio1">DEFESA PRÉVIA DE AUTUAÇÃO (CDP)</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                            value="option2">
+                        <input class="form-check-input @error('radio') is-invalid @enderror" type="radio" name="radio"
+                            id="inlineRadio2" value="jari">
                         <label class="form-check-label" for="inlineRadio2">RECURSO DE INFRAÇÃO (JARI)</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
-                            value="option3">
+                        @error('radio')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        <input class="form-check-input @error('radio') is-invalid @enderror" type="radio" name="radio"
+                            id="inlineRadio3" value="restituicao">
                         <label class="form-check-label" for="inlineRadio3">RESTITUIÇÃO DE VALORES</label>
                     </div>
                 </div>
@@ -193,13 +214,36 @@
                     <div class="mb-3 col-md-8">
                         <label for="name" class="form-label">Nome completo</label>
                         <span class="required">*</span>
-                        <input type="text" name="email" required class="form-control" id="name" placeholder="nome">
+                        <input type="text" name="name" value="{{ old('name') }}" required
+                            class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nome">
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
-                    <div class="mb-md-3 col">
+                    <div class="mb-3 col-md-4">
                         <label for="cpf" class="form-label">CPF/CNPJ</label>
                         <span class="required">*</span>
-                        <input type="text" name="email" class="form-control" id="cpf"
+                        <input type="text" required name="cpf" value="{{ old('cpf') }}"
+                            class="form-control @error('cpf') is-invalid @enderror" id="cpf"
                             placeholder="000.000.000-00/00.000.000/0000-00">
+                        @error('cpf')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="mb-3 col-md">
+                        <label for="email" class="form-label">E-mail</label>
+                        <span class="required">*</span>
+                        <input type="email" required value="{{ old('email') }}" name="email"
+                            class="form-control @error('email') is-invalid @enderror" id="email" placeholder="E-mail">
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                 </div>
             </fieldset>
@@ -216,7 +260,7 @@
                     </div>
                     <div class="mb-3 col-md-12">
                         <label for="bairro" class="form-label">Bairro</label>
-                        <input type="text" name="rua" class="form-control" id="bairro" placeholder="Bairro">
+                        <input type="text" name="bairro" class="form-control" id="bairro" placeholder="Bairro">
                     </div>
                     <div class="mb-3 col-md-12">
                         <label for="cidade" class="form-label">Cidade</label>
@@ -247,11 +291,17 @@
                     <div class="mb-3 col-md-8">
                         <label for="placa" class="form-label">Placa</label>
                         <span class="required">*</span>
-                        <input type="text" name="placa" class="form-control" id="placa" placeholder="Placa">
+                        <input type="text" name="placa" value="{{ old('placa') }}" required
+                            class="form-control @error('placa') is-invalid @enderror" id="placa" placeholder="Placa">
+                        @error('placa')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="mb-3 col-md-4">
                         <label for="uf" class="form-label">UF</label>
-                        <input class="form-control" name="uf" list="datalistOptions" id="uf" placeholder="UF">
+                        <input class="form-control" name="ufveiculo" list="datalistOptions" id="uf" placeholder="UF">
                         <datalist id="datalistOptions">
                             @foreach($estados as $key => $estado)
                             <option value="{{ $estado->uf }}">
@@ -265,9 +315,16 @@
                 <div class="row g-3">
                     <div class="mb-3 col-md-8">
                         <label for="auto" class="form-label">Auto(s)</label>
+                        <span class="required">*</span>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="A 000000-0000"
-                                aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <input type="text" name="auto[]" class="form-control @error('auto.*') is-invalid @enderror"
+                                placeholder="A 000000-0000" aria-label="Recipient's username"
+                                aria-describedby="button-addon2">
+                            @error('auto.*')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">
                                 -
                             </button>
@@ -280,72 +337,42 @@
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1"
                         class="form-label">Obsevações/descrições/Declarações/fatos</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="fato" rows="10"></textarea>
                 </div>
 
             </fieldset>
             <fieldset>
-                <legend>Imagens</legend>
+                <legend>Anexar Imagens</legend>
                 <div class="row g-3">
-                    <div class="file-upload">
-                        <button class="file-upload-btn" type="button"
-                            onclick="$('.file-upload-input').trigger( 'click' )">Adicionar imagem</button>
-                        <div class="file-upload-placeholder">
-                            <input class="file-upload-input" type='file' multiple onchange="readURL(this);"
-                                accept="image/*" />
-                            <div class="drag-text">
-                                <h3>Arraste e solte um arquivo ou selecione adicionar imagem</h3>
-                            </div>
-                        </div>
-                        <div class="file-upload-preview">
-                            <img class="file-upload-image" src="#" alt="your image" />
-                            <div class="file-upload-remove">
-                                <button type="button" onclick="removeUpload()" class="remove-image">Remove <span
-                                        class="image-title">Imagem Carregada</span></button>
-                            </div>
-                        </div>
+                    <div class="mb-3 col-md-12">
+                        <label for="formFileMultiple" class="form-label">Fotos</label>
+                        <input class="form-control" name="image[]" type="file" id="formFileMultiple" accept="image/*"
+                            multiple>
                     </div>
                 </div>
             </fieldset>
+            <fieldset>
+                <legend>Anexar Documentos</legend>
+                <div class="row g-3">
+                    <div class="mb-3 col-md-12">
+                        <label for="formFileMultiple" class="form-label">Documentos</label>
+                        <input class="form-control" name="doc[]" type="file" id="formFileMultiple"
+                            accept="application/pdf" multiple>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row g-3">
+                <div class="mb-3 col-md-12">
+                    <button class="btn btn-block btn-primary" type="submit">Gerar Requerimento</button>
+                </div>
+            </div>
 
         </form>
 
     </div>
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
-    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script>
-        function readURL(input) {
-  if (input.files && input.files[0]) {                      // if input is file, files has content
-    var inputFileData = input.files[0];                     // shortcut
-    var reader = new FileReader();                          // FileReader() : init
-    reader.onload = function(e) {                           /* FileReader : set up ************** */
-    console.log('e',e)
-      $('.file-upload-placeholder').hide();                 // call for action element : hide
-      $('.file-upload-image').attr('src', e.target.result); // image element : set src data.
-      $('.file-upload-preview').show();                     // image element's container : show
-      $('.image-title').html(inputFileData.name);           // set image's title
-    };
-    console.log('input.files[0]',input.files[0])
-    reader.readAsDataURL(inputFileData);     // reads target inputFileData, launch `.onload` actions
-  } else { removeUpload(); }
-}
 
-function removeUpload() {
-  var $clone = $('.file-upload-input').val('').clone(true); // create empty clone
-  $('.file-upload-input').replaceWith($clone);              // reset input: replaced by empty clone
-  $('.file-upload-placeholder').show();                     // show placeholder
-  $('.file-upload-preview').hide();                         // hide preview
-}
-
-// Style when drag-over
-    $('.file-upload-placeholder').bind('dragover', function () {
-    $('.file-upload-placeholder').addClass('image-dropping');
-    });
-    $('.file-upload-placeholder').bind('dragleave', function () {
-    $('.file-upload-placeholder').removeClass('image-dropping');
-    });
-    </script>
 </body>
 
 </html>

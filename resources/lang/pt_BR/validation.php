@@ -14,6 +14,7 @@ return [
     */
 
     'accepted'             => 'O campo :attribute deve ser aceito.',
+    'auto.*'             => 'O campo :attribute obrigatório.',
     'active_url'           => 'O campo :attribute não é uma URL válida.',
     'after'                => 'O campo :attribute deve ser uma data posterior a :date.',
     'after_or_equal'       => 'O campo :attribute deve ser uma data posterior ou igual a :date.',
@@ -160,7 +161,7 @@ return [
         'date'      => 'data',
         'day'       => 'dia',
         'excerpt'   => 'resumo',
-        'first_name'=> 'primeiro nome',
+        'first_name' => 'primeiro nome',
         'gender'    => 'gênero',
         'hour'      => 'hora',
         'last_name' => 'sobrenome',
