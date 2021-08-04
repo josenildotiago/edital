@@ -226,7 +226,7 @@
                         <label for="cpf" class="form-label">CPF/CNPJ</label>
                         <span class="required">*</span>
                         <input type="text" required name="cpf" value="{{ old('cpf') }}"
-                            class="form-control @error('cpf') is-invalid @enderror" id="cpf"
+                            class="form-control @error('cpf') is-invalid @enderror" id="cpf_cnpj"
                             placeholder="000.000.000-00/00.000.000/0000-00">
                         @error('cpf')
                         <span class="invalid-feedback" role="alert">
@@ -250,29 +250,35 @@
             <fieldset>
                 <legend>Endereço</legend>
                 <div class="row g-3">
-                    <div class="mb-3 col-md-8">
-                        <label for="rua" class="form-label">Rua</label>
-                        <input type="text" name="rua" class="form-control" id="rua" placeholder="Rua">
+                    <div class="mb-3 col-md-2">
+                        <label for="cep" class="form-label">CEP</label>
+                        <input type="text" name="cep" class="form-control cep" onblur="pesquisacep(this.value);"
+                            id="cep" value="{{ old('cep') }}" placeholder="00000-000">
                     </div>
-                    <div class="mb-md-3 col">
-                        <label for="numero" class="form-label">N°</label>
-                        <input type="number" name="numero" class="form-control" id="numero" placeholder="000">
+                    <div class="mb-3 col-md-10">
+                        <label for="rua" class="form-label">Rua</label>
+                        <input type="text" name="rua" class="form-control" id="rua" value="{{ old('rua') }}"
+                            placeholder="Rua">
                     </div>
                     <div class="mb-3 col-md-12">
                         <label for="bairro" class="form-label">Bairro</label>
-                        <input type="text" name="bairro" class="form-control" id="bairro" placeholder="Bairro">
+                        <input type="text" name="bairro" class="form-control" id="bairro" value="{{ old('bairro') }}"
+                            placeholder="Bairro">
                     </div>
                     <div class="mb-3 col-md-12">
                         <label for="cidade" class="form-label">Cidade</label>
-                        <input type="text" name="cidade" class="form-control" id="cidade" placeholder="Cidade">
+                        <input type="text" name="cidade" class="form-control" id="cidade" value="{{ old('cidade') }}"
+                            placeholder="Cidade">
                     </div>
-                    <div class="mb-3 col-md-4">
-                        <label for="cep" class="form-label">CEP</label>
-                        <input type="text" name="cep" class="form-control" id="cep" placeholder="00000-000">
+                    <div class="mb-md-3 col">
+                        <label for="numero" class="form-label">N°</label>
+                        <input type="number" name="numero" class="form-control" id="numero" value="{{ old('numero') }}"
+                            placeholder="000">
                     </div>
                     <div class="mb-3 col-md-4">
                         <label for="uf" class="form-label">UF</label>
-                        <input class="form-control" name="uf" list="datalistOptions" id="uf" placeholder="UF">
+                        <input class="form-control" name="uf" list="datalistOptions" id="uf" value="{{ old('uf') }}"
+                            placeholder="UF">
                         <datalist id="datalistOptions">
                             @foreach($estados as $key => $estado)
                             <option value="{{ $estado->uf }}">
@@ -281,7 +287,8 @@
                     </div>
                     <div class="mb-3 col-md-4">
                         <label for="tel" class="form-label">Telefonre</label>
-                        <input type="text" name="tel" class="form-control" id="tel" placeholder="0000000">
+                        <input type="text" name="tel" value="{{ old('tel') }}" class="form-control" id="tel"
+                            placeholder="0000000">
                     </div>
                 </div>
             </fieldset>
@@ -301,7 +308,8 @@
                     </div>
                     <div class="mb-3 col-md-4">
                         <label for="uf" class="form-label">UF</label>
-                        <input class="form-control" name="ufveiculo" list="datalistOptions" id="uf" placeholder="UF">
+                        <input class="form-control" name="ufveiculo" value="{{ old('ufveiculo') }}"
+                            list="datalistOptions" id="uf" placeholder="UF">
                         <datalist id="datalistOptions">
                             @foreach($estados as $key => $estado)
                             <option value="{{ $estado->uf }}">
@@ -317,9 +325,9 @@
                         <label for="auto" class="form-label">Auto(s)</label>
                         <span class="required">*</span>
                         <div class="input-group mb-3">
-                            <input type="text" name="auto[]" class="form-control @error('auto.*') is-invalid @enderror"
-                                placeholder="A 000000-0000" aria-label="Recipient's username"
-                                aria-describedby="button-addon2">
+                            <input type="text" name="auto[]" id="auto"
+                                class="form-control @error('auto.*') is-invalid @enderror" placeholder="A 000000-0000"
+                                aria-label="Recipient's username" aria-describedby="button-addon2">
                             @error('auto.*')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -333,13 +341,18 @@
                 </div>
             </fieldset>
             <fieldset>
-                <legend>Dos fatos</legend>
+                <legend>Dos fatos <span class="required">*</span></legend>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1"
                         class="form-label">Obsevações/descrições/Declarações/fatos</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" name="fato" rows="10"></textarea>
+                    <textarea class="form-control @error('fato') is-invalid @enderror" id="exampleFormControlTextarea1"
+                        name="fato" rows="10">{{ old('fato') }}</textarea>
+                    @error('fato')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
-
             </fieldset>
             <fieldset>
                 <legend>Anexar Imagens</legend>
@@ -372,6 +385,8 @@
     </div>
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.mask.js"></script>
+    <script src="js/mask.js"></script>
 
 </body>
 

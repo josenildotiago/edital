@@ -18,6 +18,7 @@ class FormularioController extends Controller
             'cpf' => ['required', 'min:11', 'max:25'],
             'placa' => ['required', 'min:7', 'max:8', ':attribute não pode ser em branco!'],
             'auto.*' => ['required'],
+            'fato' => ['required', 'string', 'max:255'],
             'doc' => ['mimes:pdf', 'max:2500']
             ]
         );

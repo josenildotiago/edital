@@ -153,7 +153,12 @@ return [
 
     'attributes' => [
         'address'   => 'endereço',
+        'cpf'       => 'CPF/CNPJ',
+        'cpf_cnpj'  => 'CPF/CNPJ',
+        'fato'      => 'Dos fatos',
+        'namefull'  => 'Nome Completo',
         'age'       => 'idade',
+        'auto.*'    => 'Auto de infração',
         'body'      => 'conteúdo',
         'cell'      => 'celular',
         'city'      => 'cidade',
@@ -174,6 +179,7 @@ return [
         'number'    => 'número',
         'password'  => 'senha',
         'phone'     => 'telefone',
+        'radio'     => 'tipos de formulários',
         'second'    => 'segundo',
         'sex'       => 'sexo',
         'state'     => 'estado',
