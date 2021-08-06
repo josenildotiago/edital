@@ -9,6 +9,9 @@ class FormularioController extends Controller
 {
     public function getForm(Request $request)
     {
+        $rules  = [
+            "doc" => "required|mimes:application/pdf, application/x-pdf,application/acrobat, applications/vnd.pdf, text/pdf, text/x-pdf|max:10000"
+        ];
         $validator = Validator::make(
             $request->all(),
             [
@@ -16,10 +19,11 @@ class FormularioController extends Controller
             'email' => ['string', 'email', 'max:255'],
             'radio' => ['required', 'string'],
             'cpf' => ['required', 'min:11', 'max:25'],
-            'placa' => ['required', 'min:7', 'max:8', ':attribute não pode ser em branco!'],
+            'placa' => ['required', 'min:7', 'max:8'],
             'auto.*' => ['required'],
             'fato' => ['required', 'string', 'max:255'],
-            'doc' => ['mimes:pdf', 'max:2500']
+            'doc.*' => ['mimes:pdf'],
+            'image.*' => 'mimes:jpeg,bmp,png,jpg'
             ]
         );
         if ($validator->fails()) {

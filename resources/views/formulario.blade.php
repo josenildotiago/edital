@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link type="text/css" rel="stylesheet" href="bootstrap5/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="bootstrap/bootstrap.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <title>Formulário</title>
     <style>
@@ -157,6 +157,7 @@
             border: 0;
             transition: all .2s ease;
         }
+
     </style>
 </head>
 
@@ -166,27 +167,21 @@
             REQUERIMENTO DE RECURSO DE AUTUAÇÃO OU PENALIDADE / RESTITUIÇÃO DE VALORES
         </h1>
         @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
         <form action="{{ route('getForm') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('POST')
             <fieldset>
                 <legend for="">Tipos de formulário <span class="required">*</span></legend>
-
                 <div class="text-center">
                     <div class="form-check form-check-inline">
-                        @error('radio')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
                         <input class="form-check-input @error('radio') is-invalid @enderror" type="radio" name="radio"
                             id="inlineRadio1" value="defesaprevia">
                         <label class="form-check-label" for="inlineRadio1">DEFESA PRÉVIA DE AUTUAÇÃO (CDP)</label>
@@ -197,11 +192,6 @@
                         <label class="form-check-label" for="inlineRadio2">RECURSO DE INFRAÇÃO (JARI)</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        @error('radio')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
                         <input class="form-check-input @error('radio') is-invalid @enderror" type="radio" name="radio"
                             id="inlineRadio3" value="restituicao">
                         <label class="form-check-label" for="inlineRadio3">RESTITUIÇÃO DE VALORES</label>
@@ -217,9 +207,9 @@
                         <input type="text" name="name" value="{{ old('name') }}" required
                             class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nome">
                         @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="mb-3 col-md-4">
@@ -229,9 +219,9 @@
                             class="form-control @error('cpf') is-invalid @enderror" id="cpf_cnpj"
                             placeholder="000.000.000-00/00.000.000/0000-00">
                         @error('cpf')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="mb-3 col-md">
@@ -240,9 +230,9 @@
                         <input type="email" required value="{{ old('email') }}" name="email"
                             class="form-control @error('email') is-invalid @enderror" id="email" placeholder="E-mail">
                         @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                 </div>
@@ -272,21 +262,21 @@
                     </div>
                     <div class="mb-md-3 col">
                         <label for="numero" class="form-label">N°</label>
-                        <input type="number" name="numero" class="form-control" id="numero" value="{{ old('numero') }}"
-                            placeholder="000">
+                        <input type="number" name="numero" class="form-control" id="numero"
+                            value="{{ old('numero') }}" placeholder="000">
                     </div>
                     <div class="mb-3 col-md-4">
                         <label for="uf" class="form-label">UF</label>
-                        <input class="form-control" name="uf" list="datalistOptions" id="uf" value="{{ old('uf') }}"
-                            placeholder="UF">
+                        <input class="form-control" name="uf" list="datalistOptions" id="uf"
+                            value="{{ old('uf') }}" placeholder="UF">
                         <datalist id="datalistOptions">
-                            @foreach($estados as $key => $estado)
-                            <option value="{{ $estado->uf }}">
-                                @endforeach
+                            @foreach ($estados as $key => $estado)
+                                <option value="{{ $estado->uf }}">
+                            @endforeach
                         </datalist>
                     </div>
                     <div class="mb-3 col-md-4">
-                        <label for="tel" class="form-label">Telefonre</label>
+                        <label for="tel" class="form-label">Telefone</label>
                         <input type="text" name="tel" value="{{ old('tel') }}" class="form-control" id="tel"
                             placeholder="0000000">
                     </div>
@@ -301,9 +291,9 @@
                         <input type="text" name="placa" value="{{ old('placa') }}" required
                             class="form-control @error('placa') is-invalid @enderror" id="placa" placeholder="Placa">
                         @error('placa')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
                     <div class="mb-3 col-md-4">
@@ -311,9 +301,9 @@
                         <input class="form-control" name="ufveiculo" value="{{ old('ufveiculo') }}"
                             list="datalistOptions" id="uf" placeholder="UF">
                         <datalist id="datalistOptions">
-                            @foreach($estados as $key => $estado)
-                            <option value="{{ $estado->uf }}">
-                                @endforeach
+                            @foreach ($estados as $key => $estado)
+                                <option value="{{ $estado->uf }}">
+                            @endforeach
                         </datalist>
                     </div>
                 </div>
@@ -321,21 +311,25 @@
             <fieldset>
                 <legend>Identificação da notificação</legend>
                 <div class="row g-3">
-                    <div class="mb-3 col-md-8">
+                    <div class="mb-3 col-md-12">
                         <label for="auto" class="form-label">Auto(s)</label>
                         <span class="required">*</span>
                         <div class="input-group mb-3">
-                            <input type="text" name="auto[]" id="auto"
-                                class="form-control @error('auto.*') is-invalid @enderror" placeholder="A 000000-0000"
-                                aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <div class="col-md-8" id="formulario">
+                                <input type="text" name="auto[]" id="auto"
+                                    class="form-control @error('auto.*') is-invalid @enderror"
+                                    placeholder="A 000000-0000" aria-label="Recipient's username"
+                                    aria-describedby="button-addon2">
+                            </div>
+                            <div class="mb-3 col-md-12">
+                                <button class="btn btn-primary" type="button" id="add-campo">Adicionar mais
+                                    autos</button>
+                            </div>
                             @error('auto.*')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @enderror
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">
-                                -
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -348,9 +342,9 @@
                     <textarea class="form-control @error('fato') is-invalid @enderror" id="exampleFormControlTextarea1"
                         name="fato" rows="10">{{ old('fato') }}</textarea>
                     @error('fato')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
             </fieldset>
@@ -387,6 +381,7 @@
     <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
     <script src="js/jquery.mask.js"></script>
     <script src="js/mask.js"></script>
+    <script src="js/add.js"></script>
 
 </body>
 

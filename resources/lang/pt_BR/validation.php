@@ -153,6 +153,11 @@ return [
 
     'attributes' => [
         'address'   => 'endereço',
+        'doc'       => 'Documentos',
+        'doc.*'       => 'Documentos',
+        'image'     => 'Fotos',
+        'image.*'     => 'Fotos',
+        'address'   => 'endereço',
         'cpf'       => 'CPF/CNPJ',
         'cpf_cnpj'  => 'CPF/CNPJ',
         'fato'      => 'Dos fatos',
