@@ -170,7 +170,10 @@
 <body>
     <div class="container pb-4 color-bg">
         @if (Session::has('auto'))
-        {{ Session::get('auto') }}
+        <pre>
+            {{ Session::get('auto') }}
+        </pre>
+
         @endif
         <h1 class="text-center pt-4">
             REQUERIMENTO DE RECURSO DE AUTUAÇÃO OU PENALIDADE / RESTITUIÇÃO DE VALORES
