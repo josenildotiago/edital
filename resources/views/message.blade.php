@@ -1,5 +1,5 @@
 @if(session()->exists('message'))
-<div class="message message-{{ $color }}">
-    {{ $slot }}
+<div class="alert alert-{{ session()->get('color') }} text-center" role="alert">
+    {{ session()->get('message') }}
 </div>
 @endif

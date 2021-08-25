@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -150,6 +151,7 @@ class UserController extends Controller
             'password' => $valor
         ]);
 
+        Log::channel('main')->info('trocou senha '.$user->name);
         return redirect()->route('home')->with("success_user_update_senha", "Salvo com sucesso");
 
     }

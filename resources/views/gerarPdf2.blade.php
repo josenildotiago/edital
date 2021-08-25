@@ -11,7 +11,6 @@
         .classe {
             margin-bottom: 20px;
         }
-
     </style>
 </head>
 
@@ -42,9 +41,25 @@
     <div class="d-inline-flex fs-1 h3 text-center">
         DEFESA PRÉVIA DE AUTUAÇÃO (CDP)
     </div>
-    <div class="">
-        <div>Nome: Joka tibeu</div>
-    </div>
+    <table class="table table-bordered border-primary">
+        <thead>
+            <tr>
+                <th scope="col">Nome:</th>
+                <th>CPF:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td colspan="4">
+                <table class="table mb-0">
+                    Teste
+                </table>
+            </td>
+            <tr class="align-bottom">
+                <td colspan="8" scope="row">Josenildo Tiago</td>
+                <td colspan="2" scope="row">037.569.369-98</td>
+            </tr>
+        </tbody>
+    </table>
 
     <script src="{{ public_path('bootstrap5/js/bootstrap.bundle.min.js') }}"></script>
 </body>

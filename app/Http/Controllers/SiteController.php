@@ -21,9 +21,20 @@ class SiteController extends Controller
         // return view('gerarPdf');
     }
 
-    public function formulario()
+    public function formulario(Request $request)
     {
+        // dd($request);
+        // $data = $request->session()->all();
+        // echo "<pre>";
+        // var_dump($data);
+        // echo "</pre>";
         $estados = Estado::all();
-        return view('formulario', ['estados' => $estados]);
+        return view('formulario', [
+            'estados' => $estados,
+        ]);
+    }
+    public function feito()
+    {
+        return view('feito');
     }
 }

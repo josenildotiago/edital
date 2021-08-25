@@ -1,3 +1,10 @@
+{{-- @if (Session::has('feito'))
+@if (Session::get('feito') == 'true')
+<script>
+    window.location = "/feito";
+</script>
+@endif
+@endif --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -162,6 +169,9 @@
 
 <body>
     <div class="container pb-4 color-bg">
+        @if (Session::has('auto'))
+        {{ Session::get('auto') }}
+        @endif
         <h1 class="text-center pt-4">
             REQUERIMENTO DE RECURSO DE AUTUAÇÃO OU PENALIDADE / RESTITUIÇÃO DE VALORES
         </h1>
@@ -314,24 +324,19 @@
                 <legend>Identificação da notificação</legend>
                 <div class="row g-3">
                     <div class="mb-3 col-md-12">
-                        <label for="auto" class="form-label">Auto(s)</label>
+                        <label for="auto" class="form-label">Auto</label>
                         <span class="required">*</span>
                         <div class="input-group mb-3">
                             <div class="col-md-8" id="formulario">
-                                <input type="text" name="auto[]" id="auto"
-                                    class="form-control @error('auto.*') is-invalid @enderror"
-                                    placeholder="A 000000-0000" aria-label="Recipient's username"
-                                    aria-describedby="button-addon2">
+                                <input type="text" name="auto" id="auto" value="{{ old('auto') }}"
+                                    class="form-control @error('auto') is-invalid @enderror" placeholder="A 000000-0000"
+                                    aria-label="Recipient's username" aria-describedby="button-addon2" required>
+                                @error('auto')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
-                            <div class="mb-3 col-md-12">
-                                <button class="btn btn-primary" type="button" id="add-campo">Adicionar mais
-                                    autos</button>
-                            </div>
-                            @error('auto.*')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
                         </div>
                     </div>
                 </div>
@@ -342,7 +347,7 @@
                     <label for="exampleFormControlTextarea1"
                         class="form-label">Obsevações/descrições/Declarações/fatos</label>
                     <textarea class="form-control @error('fato') is-invalid @enderror" id="exampleFormControlTextarea1"
-                        name="fato" rows="10">{{ old('fato') }}</textarea>
+                        name="fato" rows="10" required>{{ old('fato') }}</textarea>
                     @error('fato')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

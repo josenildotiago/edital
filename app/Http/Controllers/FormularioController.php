@@ -18,9 +18,9 @@ class FormularioController extends Controller
             'tipo' => ['required', 'string'],
             'cpf' => ['required', 'min:11', 'max:25'],
             'placa' => ['required', 'min:7', 'max:8'],
-            'auto.*' => ['required'],
+            'auto' => ['required', 'string', 'min:5', 'max:20'],
             'fato' => ['required', 'string', 'max:255'],
-            'doc.*' => ['mimes:pdf'],
+            'doc.*' => ['required','mimes:pdf'],
             'image.*' => 'mimes:jpeg,bmp,png,jpg'
             ]
         );
@@ -30,7 +30,6 @@ class FormularioController extends Controller
                         ->withInput();
         }
 
-        $auto = implode('/', $request->input('auto'));
 
         $requerimento = new Requerimento();
         $requerimento->name = $request->input('name');
@@ -45,22 +44,19 @@ class FormularioController extends Controller
         $requerimento->uf = $request->input('uf');
         $requerimento->tel = $request->input('tel');
         $requerimento->placa = $request->input('placa');
+        $requerimento->auto = $request->input('auto');
         $requerimento->ufveiculo = $request->input('ufveiculo');
-        $requerimento->auto = $auto;
         $requerimento->fato = $request->input('fato');
         $requerimento->ip = $request->ip();
 
         if ($requerimento->save()) {
-            return redirect()->route('formulario')->with([
-                "color" => "success",
-                "message" => "Salvo com sucesso"]);
-            // return redirect()->route('formulario')->withInput()->with([
-            //     'color' => 'orange',
-            //     'message' => 'Todas as imagens devem ser do tipo jpg, jpeg ou png.',
-            // ]);
+            // session(['auto' => $requerimento->id]);
+            $placas = Requerimento::where('placa', $request->input('placa'))->get();
+            session(['auto' => $placas]);
+            return redirect()->route('formulario')->with(['color' => 'success', 'message' => 'Salvo com sucesso!']);
         } else {
-            return redirect()->route('formulario')->with("danger", "Erro ao salvar");
+            // session(['feito' => 'false']);
+            return redirect()->route('formulario')->with(['color' => 'danger', 'message' => 'Erro ao salvar!']);
         }
-        // dd($request);
     }
 }

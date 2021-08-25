@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Providers\RouteServiceProvider;
 use Closure;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +27,15 @@ class RedirectIfAuthenticated
                 return redirect(RouteServiceProvider::HOME);
             }
         }
-
+        $secure = json_encode([
+            'secure' => $request->secure(),
+            'ip' => $request->ip(),
+            'agente' => $request->userAgent(),
+            'user' => $request->user(),
+            'path' => $request->path(),
+            'route' => $request->session()
+        ]);
+        Log::channel('main')->info('acessou a pagina login '.$secure);
         return $next($request);
     }
 }

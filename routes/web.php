@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\SiteController::class, 'index'])->name('site');
 Route::get('/pdf', [App\Http\Controllers\SiteController::class, 'pdf'])->name('gerarPdf');
 Route::get('/formulario', [App\Http\Controllers\SiteController::class, 'formulario'])->name('formulario');
+Route::get('/feito', [App\Http\Controllers\SiteController::class, 'feito'])->name('feito');
 Route::post('/enviarFormulario', [App\Http\Controllers\FormularioController::class, 'getForm'])->name('getForm');
 Auth::routes();
 
