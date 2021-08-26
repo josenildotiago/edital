@@ -169,12 +169,11 @@
 
 <body>
     <div class="container pb-4 color-bg">
-        @if (Session::has('auto'))
+        {{-- @if (Session::has('auto'))
         <pre>
             {{ Session::get('auto') }}
         </pre>
-
-        @endif
+        @endif --}}
         <h1 class="text-center pt-4">
             REQUERIMENTO DE RECURSO DE AUTUAÇÃO OU PENALIDADE / RESTITUIÇÃO DE VALORES
         </h1>
@@ -194,22 +193,24 @@
             @method('POST')
             <fieldset>
                 <legend for="">Tipos de formulário <span class="required">*</span></legend>
+
                 <div class="text-center">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input @error('radio') is-invalid @enderror" type="radio" name="tipo"
+                        <input class="form-check-input @error('tipo') is-invalid @enderror" type="radio" name="tipo"
                             id="inlineRadio1" value="defesaprevia">
                         <label class="form-check-label" for="inlineRadio1">DEFESA PRÉVIA DE AUTUAÇÃO (CDP)</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input @error('radio') is-invalid @enderror" type="radio" name="tipo"
+                        <input class="form-check-input @error('tipo') is-invalid @enderror" type="radio" name="tipo"
                             id="inlineRadio2" value="jari">
                         <label class="form-check-label" for="inlineRadio2">RECURSO DE INFRAÇÃO (JARI)</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input @error('radio') is-invalid @enderror" type="radio" name="tipo"
+                        <input class="form-check-input @error('tipo') is-invalid @enderror" type="radio" name="tipo"
                             id="inlineRadio3" value="restituicao">
                         <label class="form-check-label" for="inlineRadio3">RESTITUIÇÃO DE VALORES</label>
                     </div>
+
                 </div>
                 <input type="text" hidden name="ip" value="{{ Request::ip() }}">
             </fieldset>
@@ -333,7 +334,7 @@
                             <div class="col-md-8" id="formulario">
                                 <input type="text" name="auto" id="auto" value="{{ old('auto') }}"
                                     class="form-control @error('auto') is-invalid @enderror" placeholder="A 000000-0000"
-                                    aria-label="Recipient's username" aria-describedby="button-addon2" required>
+                                    aria-label="Recipient's username" aria-describedby="button-addon2">
                                 @error('auto')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

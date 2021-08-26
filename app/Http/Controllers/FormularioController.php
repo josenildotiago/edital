@@ -13,23 +13,23 @@ class FormularioController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-            'name' => ['required', 'string', 'max:255', 'min:10'],
-            'email' => ['string', 'email', 'max:255'],
-            'tipo' => ['required', 'string'],
-            'cpf' => ['required', 'min:11', 'max:25'],
-            'placa' => ['required', 'min:7', 'max:8'],
-            'auto' => ['required', 'string', 'min:5', 'max:20'],
-            'fato' => ['required', 'string', 'max:255'],
-            'doc.*' => ['required','mimes:pdf'],
-            'image.*' => 'mimes:jpeg,bmp,png,jpg'
+            'name'      => ['required', 'string', 'max:255', 'min:10'],
+            'email'     => ['string', 'email', 'max:255'],
+            'tipo'      => ['required'],
+            'cpf'       => ['required', 'min:11', 'max:25'],
+            'placa'     => ['required', 'min:7', 'max:8'],
+            'auto'      => ['unique:requerimentos','required', 'string', 'min:5', 'max:20'],
+            'fato'      => ['required', 'string', 'max:255'],
+            'doc.*'     => ['required','mimes:pdf'],
+            'image.*'   => ['mimes:jpeg,bmp,png,jpg']
             ]
         );
+
         if ($validator->fails()) {
             return redirect('/formulario')
                         ->withErrors($validator)
                         ->withInput();
         }
-
 
         $requerimento = new Requerimento();
         $requerimento->name = $request->input('name');
