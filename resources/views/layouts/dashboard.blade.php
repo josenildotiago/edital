@@ -150,12 +150,18 @@
                                     </a>
                                 </li>
                                 @can('admin', Model::class)
-                                    <li class="nav-item">
-                                        <a href="{{ route('create.user') }}" class="nav-link">
-                                            <i class="fas fa-users"></i>
-                                            <p>Cadastrar Usuarios</p>
-                                        </a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('create.user') }}" class="nav-link">
+                                        <i class="fas fa-users"></i>
+                                        <p>Cadastrar Usuarios</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('visualiza.solicitacao') }}" class="nav-link">
+                                        <i class="fas fa-binoculars"></i>
+                                        <p>Visualizar solicitações</p>
+                                    </a>
+                                </li>
                                 @endcan
                                 {{-- <li class="nav-item">
                                     <a href="" class="nav-link">

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Requerimento;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Edital;
 
-class EditalController extends Controller
+class SolicitaController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,18 +26,11 @@ class EditalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $itens = Item::all();
-        return view('painel.edital', ['itens' => $itens]);
-    }
-
-    public function items()
-    {
-        $itens = Item::all();
-
-        return view('painel.items', [
-            'itens' => $itens
+        $solicitacoes = Requerimento::all();
+        return view('painel.visulizarsolicitacao', [
+            'solicitacoes' => $solicitacoes
         ]);
     }
 
@@ -47,6 +41,7 @@ class EditalController extends Controller
      */
     public function create()
     {
+        //
     }
 
     /**
@@ -57,23 +52,7 @@ class EditalController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $tipo = $request->input('tipo');
-        $orgao = $request->input('orgao');
-        $ano = $request->input('ano');
-
-        $edital = new Edital();
-        $edital->user_id = $user->id;
-        $edital->tipo = $tipo;
-        $edital->orgao = $orgao;
-        $edital->ano = $ano;
-        $edital->path_pdf = $request->file('path_pdf')->store('pdfs');
-        $edital->jom = $request->file('jom')->store('jom');
-        if ($edital->save()) {
-                return redirect()->route('home')->with("success", "Salvo com sucesso");
-        } else {
-            return redirect()->route('home')->with("warning", "Erro ao salvar");
-        }
+        //
     }
 
     /**
@@ -84,7 +63,14 @@ class EditalController extends Controller
      */
     public function show($id)
     {
-        return view('painel.invoice');
+        $invoice = Requerimento::findOrFail($id);
+        $name = $invoice->name;
+        $multas = Requerimento::where('placa', $invoice->placa)->get();
+        return view('painel.invoice', [
+            'invoice' => $invoice,
+            'name' => $name,
+            'multas' => $multas
+        ]);
     }
 
     /**
@@ -105,11 +91,9 @@ class EditalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $id = $request->input('id');
-        Item::findOrFail($id)->update($request->only(['condicao']));
-        return redirect()->route('home')->with("editItem", "Salvo com sucesso");
+        //
     }
 
     /**

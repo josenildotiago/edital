@@ -19,7 +19,7 @@ class FormularioController extends Controller
             'cpf'       => ['required', 'min:11', 'max:25'],
             'placa'     => ['required', 'min:7', 'max:8'],
             'auto'      => ['unique:requerimentos','required', 'string', 'min:5', 'max:20'],
-            'fato'      => ['required', 'string', 'max:255'],
+            'fato'      => ['required', 'string'],
             'doc.*'     => ['required','mimes:pdf'],
             'image.*'   => ['mimes:jpeg,bmp,png,jpg']
             ]
@@ -30,7 +30,6 @@ class FormularioController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
         $requerimento = new Requerimento();
         $requerimento->name = $request->input('name');
         $requerimento->tipo = $request->input('tipo');

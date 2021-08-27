@@ -21,6 +21,7 @@
         body {
             background-color: #F4F6F9;
         }
+
         div.unstyledTable {
             font-family: Arial, Helvetica, sans-serif;
             border: 1px solid #000000;
@@ -58,6 +59,7 @@
         .unstyledTable .tableFootStyle {
             font-weight: bold;
         }
+
         /* DivTable.com */
 
         .divTable {
@@ -101,58 +103,6 @@
 
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div class="divTable unstyledTable">
-                                <div class="divTableHeading">
-                                    <div class="divTableRow">
-                                        <div class="divTableHead">#</div>
-                                        <div class="divTableHead">Tipo de Notificação</div>
-                                        <div class="divTableHead">Edital/Ano</div>
-                                        <div class="divTableHead">JOM</div>
-                                        <div class="divTableHead">Arquivo</div>
-                                    </div>
-                                </div>
-                                <div class="divTableBody">
-                                    @foreach ($editais as $key => $edital)
-                                    <div class="divTableRow">
-
-                                        <div class="divTableCell">{{ $key + 1  }}</div>
-                                        <div class="divTableCell">
-                                            @switch($edital->tipo)
-                                                    @case('na')
-                                                        Notificação de Autuação
-                                                    @break
-                                                    @case('np')
-                                                        Notificação de Penalidade
-                                                    @break
-                                                    @case('np e na')
-                                                        Notificação de Penalidade e Autuação
-                                                    @break
-                                                    @default
-                                                        {{ $edital->tipo }}
-                                                @endswitch
-                                        </div>
-                                        <div class="divTableCell"><a href="http://"></a>{{ $edital->ano }}</div>
-                                        <div class="divTableCell">
-                                            <a href="http://jom.prefeiturademossoro.com.br/wp-content/uploads/2021/07/622.pdf">JOM</a>
-                                        </div>
-                                        <div class="divTableCell">
-                                            <a href="storage/{{ $edital->path_pdf }}"
-                                                download="edital-ano-{{ $edital->ano }}.pdf"
-                                                target="_blank">Arquivo</a>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                </div>
-                                <div class="divTableFoot tableFootStyle">
-                                    <div class="divTableRow">
-                                        <div class="divTableCell">foot1</div>
-                                        <div class="divTableCell">foot2</div>
-                                        <div class="divTableCell">foot3</div>
-                                        <div class="divTableCell">foot3</div>
-                                        <div class="divTableCell">foot3</div>
-                                    </div>
-                                </div>
-                            </div>
                             <table id="example2" style="text-transform: uppercase"
                                 class="table table-bordered table-hover">
                                 <thead>
@@ -166,34 +116,34 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($editais as $key => $edital)
-                                        <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>
-                                                @switch($edital->tipo)
-                                                    @case('na')
-                                                        Notificação de Autuação
-                                                    @break
-                                                    @case('np')
-                                                        Notificação de Penalidade
-                                                    @break
-                                                    @case('np e na')
-                                                        Notificação de Penalidade e Autuação
-                                                    @break
-                                                    @default
-                                                        {{ $edital->tipo }}
-                                                @endswitch
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>
+                                            @switch($edital->tipo)
+                                            @case('na')
+                                            Notificação de Autuação
+                                            @break
+                                            @case('np')
+                                            Notificação de Penalidade
+                                            @break
+                                            @case('np e na')
+                                            Notificação de Penalidade e Autuação
+                                            @break
+                                            @default
+                                            {{ $edital->tipo }}
+                                            @endswitch
 
-                                            </td>
-                                            <td><a href="http://"></a>{{ $edital->ano }}</td>
-                                            <td>
-                                                <a href="http://jom.prefeiturademossoro.com.br/wp-content/uploads/2021/07/622.pdf">JOM</a>
-                                            </td>
-                                            <td>
-                                                <a href="storage/{{ $edital->path_pdf }}"
-                                                    download="edital-ano-{{ $edital->ano }}.pdf"
-                                                    target="_blank">Arquivo</a>
-                                            </td>
-                                        </tr>
+                                        </td>
+                                        <td><a href="http://"></a>{{ $edital->ano }}</td>
+                                        <td>
+                                            <a
+                                                href="http://jom.prefeiturademossoro.com.br/wp-content/uploads/2021/07/622.pdf">JOM</a>
+                                        </td>
+                                        <td>
+                                            <a href="storage/{{ $edital->path_pdf }}"
+                                                download="edital-ano-{{ $edital->ano }}.pdf" target="_blank">Arquivo</a>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -229,100 +179,109 @@
                     </div>
                 </div>
             </div>
-        <!-- Defesa box -->
-        <div class="container">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Formulário de Defesa Prévia e JARI</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                            <i class="fas fa-times"></i>
-                        </button>
+            <!-- Defesa box -->
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Formulário de Defesa Prévia e JARI</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <strong>Documentos Necessários (Para uso do Órgão)</strong><br>
-                    <br>
-                    <ul>
-                        <li>
-                            Cópia de documento com foto (CNH, RG, CTPS ou Passaporte) ou outro documento de identificação oficial que comprove a assinatura.
-                        </li>
-                        <li>
-                            Cópia do documento do veículo (CRLV)*
-                        </li>
-                        <li>
-                            Cópia da Notificação de Autuação ou Penalidade(multa)*
-                        </li>
-                        <li>
-                            Cópia de Comprovante de Pagamento Autenticada*
-                        </li>
-                        <li>
-                            Procuração com documento de identidade oficial do procurador, quando este for o requerente*
-                        </li>
-                        <li>
-                            Cópia do contrato social e aditivos, no caso de pessoa jurídica*
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    <a class="btn btn-info btn-flat" id="click" href="#" >CLIQUE AQUI PARA PREENCHER O FORMULÁRIO</a>
-                </div>
-                <!-- /.card-footer-->
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Formulário de Restituição de Valores</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                            <i class="fas fa-times"></i>
-                        </button>
+                    <div class="card-body">
+                        <strong>Documentos Necessários (Para uso do Órgão)</strong><br>
+                        <br>
+                        <ul>
+                            <li>
+                                Cópia de documento com foto (CNH, RG, CTPS ou Passaporte) ou outro documento de
+                                identificação oficial que comprove a assinatura.
+                            </li>
+                            <li>
+                                Cópia do documento do veículo (CRLV)*
+                            </li>
+                            <li>
+                                Cópia da Notificação de Autuação ou Penalidade(multa)*
+                            </li>
+                            <li>
+                                Cópia de Comprovante de Pagamento Autenticada*
+                            </li>
+                            <li>
+                                Procuração com documento de identidade oficial do procurador, quando este for o
+                                requerente*
+                            </li>
+                            <li>
+                                Cópia do contrato social e aditivos, no caso de pessoa jurídica*
+                            </li>
+                        </ul>
                     </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <a class="btn btn-info btn-flat" id="click" href="#">CLIQUE AQUI PARA PREENCHER O FORMULÁRIO</a>
+                    </div>
+                    <!-- /.card-footer-->
                 </div>
-                <div class="card-body">
-                    <br>
-                    <ul>
-                        OBSERVAÇÕES:
-                        1. A falta dos documentos solicitados poderá ocasionar o não conhecimento do pleito, caso não seja possível comprovar a legitimidade do requerente ou autenticidade dos documentos. O requerimento deve conter a exposição dos fatos, fundamentos legais e/ou documentos que comprovem o alegado.
-                        <br>2. São obrigatórios todas as informações e documentos marcados com asterisco (*).
-                        <br>3. São partes legítimas para apresentar defesa ou interpor recurso: o proprietário, o condutor devidamente identificado, o embarcador e o transportador responsável pela infração ou pessoa designada por procuração. No caso de pessoa jurídica, o seu representante legal (Resolução 299/2008 do CONTRAN).
-                        <br>4. A assinatura do requerente deve ser original e igual à constante no documento de identidade para comprovação da legitimidade (Resolução 619/2016 do CONTRAN).
-                        <br>5. Em caso de Defesa da Autuação, o resultado será enviado ao proprietário do veículo (Resolução 619/2016 do CONTRAN).
-                        <br>6. Preencher com letra legível utilizando caneta azul ou preta.
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Formulário de Restituição de Valores</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <br>
+                        <ul>
+                            OBSERVAÇÕES:
+                            1. A falta dos documentos solicitados poderá ocasionar o não conhecimento do pleito, caso
+                            não seja possível comprovar a legitimidade do requerente ou autenticidade dos documentos. O
+                            requerimento deve conter a exposição dos fatos, fundamentos legais e/ou documentos que
+                            comprovem o alegado.
+                            <br>2. São obrigatórios todas as informações e documentos marcados com asterisco (*).
+                            <br>3. São partes legítimas para apresentar defesa ou interpor recurso: o proprietário, o
+                            condutor devidamente identificado, o embarcador e o transportador responsável pela infração
+                            ou pessoa designada por procuração. No caso de pessoa jurídica, o seu representante legal
+                            (Resolução 299/2008 do CONTRAN).
+                            <br>4. A assinatura do requerente deve ser original e igual à constante no documento de
+                            identidade para comprovação da legitimidade (Resolução 619/2016 do CONTRAN).
+                            <br>5. Em caso de Defesa da Autuação, o resultado será enviado ao proprietário do veículo
+                            (Resolução 619/2016 do CONTRAN).
+                            <br>6. Preencher com letra legível utilizando caneta azul ou preta.
 
 
-                    </ul>
+                        </ul>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <a class="btn btn-info btn-flat" id="click" href="#">CLIQUE AQUI PARA PREENCHER O FORMULÁRIO</a>
+                    </div>
+                    <!-- /.card-footer-->
                 </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    <a class="btn btn-info btn-flat" id="click" href="#" >CLIQUE AQUI PARA PREENCHER O FORMULÁRIO</a>
-                </div>
-                <!-- /.card-footer-->
             </div>
-        </div>
 
-        <!-- Defesa box -->
-        @if (Route::has('login'))
+            <!-- Defesa box -->
+            @if (Route::has('login'))
             <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                 @auth
-                    <a class="btn btn-success" href="{{ url('/home') }}"
-                        class="text-sm text-gray-700 underline">Painel</a>
+                <a class="btn btn-success" href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Painel</a>
                 @else
-                    {{-- <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a> --}}
+                {{-- <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a> --}}
                 @endauth
             </div>
-        @endif
-    </div>
-    <!-- jQuery -->
-    <script src="site/js/script.min.js"></script>
-    <script>
-        $(function() {
+            @endif
+        </div>
+        <!-- jQuery -->
+        <script src="site/js/script.min.js"></script>
+        <script>
+            $(function() {
             $('.select2').select2()
         });
         $('#example2').DataTable({
@@ -341,7 +300,7 @@
         $( "#click" ).click(function() {
             alert('Ainda em construção')
         });
-    </script>
+        </script>
 </body>
 
 </html>

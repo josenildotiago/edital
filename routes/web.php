@@ -26,6 +26,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/create_user', [App\Http\Controllers\UserController::class, 'index'])->name('create.user');
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
+Route::get('/visualizar', [App\Http\Controllers\SolicitaController::class, 'index'])->name('visualiza.solicitacao');
+Route::get('/visualizarCompleto/{id}', [App\Http\Controllers\SolicitaController::class, 'show'])->name('visualiza.completo');
 Route::get('/update_password', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('update.password');
 Route::put('/update_password', [App\Http\Controllers\UserController::class, 'editSenha'])->name('update.senha');
 Route::post('/create_user', [App\Http\Controllers\UserController::class, 'create'])->name('register.user');
