@@ -221,7 +221,8 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <a class="btn btn-info btn-flat" id="click" href="#">CLIQUE AQUI PARA PREENCHER O FORMULÁRIO</a>
+                        <a class="btn btn-info btn-flat" href="{{ route('formulario') }}">CLIQUE AQUI PARA PREENCHER O
+                            FORMULÁRIO</a>
                     </div>
                     <!-- /.card-footer-->
                 </div>
@@ -261,7 +262,8 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <a class="btn btn-info btn-flat" id="click" href="#">CLIQUE AQUI PARA PREENCHER O FORMULÁRIO</a>
+                        <a class="btn btn-info btn-flat" href="{{ route('formulario') }}">CLIQUE AQUI PARA
+                            PREENCHER O FORMULÁRIO</a>
                     </div>
                     <!-- /.card-footer-->
                 </div>

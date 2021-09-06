@@ -2,12 +2,12 @@
 
 @section('content')
 @section('css')
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="dist/css/adminlte.min.css">
 @endsection
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -29,6 +29,15 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="row">
             <!-- left column -->
             <div class="col-md">
@@ -44,36 +53,48 @@
                         @method('POST')
                         <div class="card-body">
                             @foreach ($itens as $item)
-                                @php
-                                    $condicoes = explode('/', $item->condicao);
-                                    $count = count($condicoes);
-                                @endphp
-                                <div class="form-group">
-                                    <label for="{{ $item->descricao }}">{{ $item->descricao }}</label>
-                                    <select class="custom-select rounded-0" required name="{{ $item->name }}"
-                                        id="{{ $item->descricao }}" style="text-transform: uppercase">
-                                        @for ($i = 0; $i < $count; $i++)
-                                            <option value="{{ $condicoes[$i] }}">{{ $condicoes[$i] }}</option>
+                            @php
+                            $condicoes = explode('/', $item->condicao);
+                            $count = count($condicoes);
+                            @endphp
+                            <div class="form-group">
+                                <label for="{{ $item->descricao }}">{{ $item->descricao }}</label>
+                                <select class="custom-select rounded-0 @error('tipo') is-invalid @enderror" required
+                                    name="{{ $item->name }}" id="{{ $item->descricao }}"
+                                    style="text-transform: uppercase">
+                                    @for ($i = 0; $i < $count; $i++) <option value="{{ $condicoes[$i] }}">
+                                        {{ $condicoes[$i] }}</option>
                                         @endfor
-                                    </select>
-                                </div>
+                                </select>
+                                @error('tipo')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                             @endforeach
                             <div class="form-group">
-                                <label for="exampleInputPassword1">N°</label>
-                                <input type="text" name="numero" class="form-control" required id="exampleInputPassword1"
-                                    placeholder="000">
-                            </div>
-                            <div class="form-group">
                                 <label for="exampleInputPassword1">N°/Ano</label>
-                                <input type="text" name="ano" class="form-control" required id="exampleInputPassword1"
-                                    placeholder="Ex: 1979">
+                                <input type="text" name="ano" class="form-control @error('ano') is-invalid @enderror"
+                                    id="exampleInputPassword1" placeholder="Ex: 1979">
+                                @error('ano')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">JOM</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" name="jom" required class="custom-file-input"
+                                        <input type="file" name="jom"
+                                            class="custom-file-input @error('jom') is-invalid @enderror"
                                             id="exampleInputFile">
+                                        @error('jom')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                         <label class="custom-file-label" for="exampleInputFile">Escolher JOM</label>
                                     </div>
                                     <div class="input-group-append">
@@ -81,13 +102,19 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group is-invalid">
                                 <label for="exampleInputFile">Arquivo</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" name="path_pdf" required class="custom-file-input"
+                                        <input type="file" name="path_pdf"
+                                            class="custom-file-input @error('path_pdf') is-invalid @enderror"
                                             id="exampleInputFile">
                                         <label class="custom-file-label" for="exampleInputFile">Escolher arquivo</label>
+                                        @error('path_pdf')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
                                     <div class="input-group-append">
                                         <span class="input-group-text">Enviar</span>
@@ -96,7 +123,6 @@
                             </div>
                         </div>
                         <!-- /.card-body -->
-
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
@@ -111,23 +137,23 @@
 
 <!-- /.content -->
 @section('js')
-    <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- bs-custom-file-input -->
-    <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
 @endsection
 @section('script')
-    <script>
-        $(function() {
+<script>
+    $(function() {
             bsCustomFileInput.init();
         });
-    </script>
+</script>
 @endsection
 
 @endsection

@@ -57,6 +57,23 @@ class EditalController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+            'tipo'      => ['required', 'string', 'max:10', 'min:1'],
+            'ano'     => ['required','string', 'max:50'],
+            'tipo'      => ['required'],
+            'jom'       => ['required','mimes:pdf'],
+            'path_pdf'     => ['required','mimes:pdf']
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect('/register_edital')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
         $user = Auth::user();
         $tipo = $request->input('tipo');
         $orgao = $request->input('orgao');

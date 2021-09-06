@@ -160,6 +160,7 @@ return [
 
     'attributes' => [
         'address'               => 'endereço',
+        'ano'                   => 'N° e Ano',
         'doc'                   => 'Documentos',
         'doc.*'                 => 'Documentos',
         'image'                 => 'Fotos',
@@ -183,6 +184,7 @@ return [
         'first_name'            => 'primeiro nome',
         'gender'                => 'gênero',
         'hour'                  => 'hora',
+        'jom'                   => 'JOM',
         'last_name'             => 'sobrenome',
         'message'               => 'mensagem',
         'minute'                => 'minuto',

@@ -45,6 +45,45 @@ class UserController extends Controller
         ]);
     }
 
+    public function profilePhoto(Request $request)
+    {
+        $id = Auth::user()->id;
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+            'foto' => ['mimes:jpg,bmp,png']
+            ]
+        );
+        // dd($request->admin);
+        if ($validator->fails()) {
+            return redirect('/profile')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        if ($request->hasFile('foto')) {
+            if ($request->file('foto')->isValid()) {
+                // dd($request->foto);
+                // User::findOrFail($id)->update($request->all());
+                $user = User::findOrFail($id);
+                $requestImage = $request->foto;
+                $extension = $requestImage->extension();
+                $imageName = "fotos/".md5($requestImage->getClientOriginalName().strtotime('now')).".".$extension;
+                $request->foto->move(storage_path('app/public/fotos'), $imageName);
+
+                $user->foto = $imageName;
+                $user->save();
+                return redirect()->route('home')->with("success_user", "Salvo com sucesso");
+
+            }
+        }
+
+        
+        // User::findOrFail($id)->update($request->all());
+        // return redirect()->route('home')->with("success_user", "Salvo com sucesso"); 
+    }
+
     /**
      * Show the form for creating a new resource.
      *
